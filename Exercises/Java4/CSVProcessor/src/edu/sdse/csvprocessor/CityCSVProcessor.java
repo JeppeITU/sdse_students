@@ -23,8 +23,12 @@ public class CityCSVProcessor {
 				String city = convertToString(rawValues[2]);
 				int population = convertToInt(rawValues[3]);
 				
-				System.out.println("id: " + id + ", year: " + year + ", city: " + city + ", population: " + population);
+				//Create new CityRecord and print it
+				//String name = "city_" + String.ValueOf(id);
+				CityRecord name = new CityRecord(id, year, city, population);
+				System.out.println(name);
 				
+				//System.out.println("id: " + id + ", year: " + year + ", city: " + city + ", population: " + population);
 				//TODO: Extend the program to process entries!
 			}
 		} catch (Exception e) {
@@ -59,5 +63,7 @@ public class CityCSVProcessor {
 		File csvFile = new File(dataDirectory, "Cities.csv");
 		
 		reader.readAndProcess(csvFile);
+		
+		
 	}
 }
