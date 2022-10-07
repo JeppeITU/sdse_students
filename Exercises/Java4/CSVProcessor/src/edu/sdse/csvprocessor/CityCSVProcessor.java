@@ -3,6 +3,8 @@ package edu.sdse.csvprocessor;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class CityCSVProcessor {
 	
@@ -11,7 +13,10 @@ public class CityCSVProcessor {
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
 			//Discard header row
 			br.readLine();
-			
+			//Make list
+			ArrayList<CityRecord> allRecords = new ArrayList<CityRecord>();
+			//make Hashmap
+			HashMap<String, ArrayList<CityRecord>> city_map = new HashMap<String, ArrayList<CityRecord>>();
 			String line;
 			
 			while ((line = br.readLine()) != null) {
@@ -24,9 +29,23 @@ public class CityCSVProcessor {
 				int population = convertToInt(rawValues[3]);
 				
 				//Create new CityRecord and print it
-				//String name = "city_" + String.ValueOf(id);
-				CityRecord name = new CityRecord(id, year, city, population);
-				System.out.println(name);
+				CityRecord current_record = new CityRecord(id, year, city, population);
+				System.out.println(current_record);
+				
+				//Put CityRecord in list
+				allRecords.add(current_record);
+				
+				//Add to map
+				if(city_map.containsKey(city)) {
+					//if list already exists
+					city_map.get(city).add(current_record);
+				}
+				else {
+					//Create new list
+					ArrayList<CityRecord> city_list = new ArrayList<CityRecord>();
+					city_list.add(current_record);
+					city_map.put(city, city_list);
+				}
 				
 				//System.out.println("id: " + id + ", year: " + year + ", city: " + city + ", population: " + population);
 				//TODO: Extend the program to process entries!
@@ -63,7 +82,6 @@ public class CityCSVProcessor {
 		File csvFile = new File(dataDirectory, "Cities.csv");
 		
 		reader.readAndProcess(csvFile);
-		
 		
 	}
 }
