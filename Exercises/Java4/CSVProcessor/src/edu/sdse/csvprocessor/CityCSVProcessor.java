@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map.Entry;
 
 public class CityCSVProcessor {
 	
@@ -30,7 +31,7 @@ public class CityCSVProcessor {
 				
 				//Create new CityRecord and print it
 				CityRecord current_record = new CityRecord(id, year, city, population);
-				System.out.println(current_record);
+				//System.out.println(current_record);
 				
 				//Put CityRecord in list
 				allRecords.add(current_record);
@@ -50,10 +51,38 @@ public class CityCSVProcessor {
 				//System.out.println("id: " + id + ", year: " + year + ", city: " + city + ", population: " + population);
 				//TODO: Extend the program to process entries!
 			}
+			
+			//For each key in HashMap
+			for (Entry<String, ArrayList<CityRecord>> entry : city_map.entrySet()) {
+				//entry = HashMap
+				int total_entries = 0;
+				int minimum_year = 3000; //high number to initialise variable
+				int maximum_year = 0;
+				int sum_population = 0;
+
+				//Iterate over values in Hashmap (all CityRecords for a given city)
+				for (CityRecord record : entry.getValue() ) {
+					total_entries += 1;
+					sum_population += record.population;
+					if(record.year < minimum_year) {
+						minimum_year = record.year;
+					}
+					if(record.year > maximum_year) {
+						maximum_year = record.year;
+					}
+					
+				}
+				//Report for each City
+				System.out.printf("Average population of %s (%d-%d; %d Entries): %d\n",
+						entry.getKey(), minimum_year, maximum_year, total_entries,
+						sum_population/total_entries);
+				
+			}
+			
 		} catch (Exception e) {
 			System.err.println("An error occurred:");
 			e.printStackTrace();
-		}
+		} 
 	}
 	
 	private String cleanRawValue(String rawValue) {
