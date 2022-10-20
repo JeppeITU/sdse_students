@@ -7,14 +7,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
 public class LibrarySystem {
+	//Global Maps used in functions
+	HashMap<Integer, Author> authorMap = new HashMap<Integer, Author>();
+	HashMap<String, Journal> journalMap = new HashMap<String, Journal>();
 	
 	public LibrarySystem() {
-		//TODO: Initialize system with default journals.
+		//TODO: Initialise system with default journals.
 		
 		//Making publishers first
 		Publisher springer = new Publisher("Springer", "Germany");
@@ -26,7 +30,15 @@ public class LibrarySystem {
 		Journal system = new Journal("System", elsevier, "0346-2511");
 		Journal chem = new Journal("Chem", elsevier, "2451-9294");
 		Journal nature = new Journal("Nature", natureResearch, "1476-4687");
-		Journal Society = new Journal("Society", springer, "0147-2011");
+		Journal society = new Journal("Society", springer, "0147-2011");
+		
+		//Put journals in map
+		journalMap.put(higherEducation.getISSN(), higherEducation);
+		journalMap.put(system.getISSN(), system);
+		journalMap.put(chem.getISSN(), chem);
+		journalMap.put(nature.getISSN(), nature);
+		journalMap.put(society.getISSN(), society);
+		
 	}
 	
 	public void load() throws FileNotFoundException, IOException {
@@ -37,16 +49,18 @@ public class LibrarySystem {
 	protected void loadAuthors() throws FileNotFoundException, IOException {
 		Reader file = new FileReader("data/Authors.csv");
 		Iterable<CSVRecord> records = CSVFormat.RFC4180.withFirstRecordAsHeader().parse(file);
+		
+		
 		//Iterate over every row in Authors file
 		for (CSVRecord currentRecord: records) {
 			int currentID = convertToInt(currentRecord.get(0));
 			String lastName = convertToString(currentRecord.get(1));
 			String firstName = convertToString(currentRecord.get(2));
 			
-			Author currentPublisher = new Author(currentID, lastName, firstName);
-			System.out.println(currentPublisher);
+			Author currentAuthor = new Author(currentID, lastName, firstName);
+			//Add to map of authors
+			authorMap.put(currentID, currentAuthor);
 		}
-		
 		
 		//TODO: Load authors from file 
 	}
@@ -64,7 +78,12 @@ public class LibrarySystem {
 			//Make article from a single row
 			Article currentArticle = new Article(currentID, currentTitle, currentAuthorIDs, currentISSN);
 			
-			//System.out.println(currentArticle);
+			//Cross-reference with authors
+			for (int authorID: currentAuthorIDs) {
+				//currentArticle.addAuthor();
+				currentArticle.addAuthor(authorMap.get(authorID));
+			}
+			journalMap.get(currentISSN).addToArticleList(currentArticle);
 		}
 		
 		
@@ -74,6 +93,9 @@ public class LibrarySystem {
 	
 		public void listContents() {
 		//TODO: Print all journals with their respective articles and authors to the console.
+			for (Journal currentJournal: journalMap.values()) {
+				System.out.println(currentJournal);
+			}
 	}
 	
 		

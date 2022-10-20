@@ -21,6 +21,9 @@ public class Publisher {
 	public void setLocation(String location) {
 		this.location = location;
 	}
+	public String toString() {
+		return "Publisher: " + name + ", Location: " + location;
+	}
 }
 
 

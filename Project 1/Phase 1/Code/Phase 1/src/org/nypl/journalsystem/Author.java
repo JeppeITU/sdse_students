@@ -32,8 +32,6 @@ public class Author {
 	}
 	public String toString(){
 		//Overrides String.toString method, to easily print contents of class Publisher
-		return "ID: " + String.valueOf(ID) + ", Name: " + firstName + 
-				" " + lastName;
+		return firstName + " " + lastName;
 	}
-
 }

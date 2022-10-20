@@ -6,7 +6,7 @@ public class Journal {
 	private String name;
 	private Publisher publisher;
 	private String ISSN;
-	private ArrayList<Article> articleList;
+	private ArrayList<Article> articleList = new ArrayList<Article>();
 
 	public Journal(String name, Publisher publisher, String iSSN) {
 		super();
@@ -50,6 +50,8 @@ public class Journal {
 	public void addToArticleList(Article newArticle) {
 		this.articleList.add(newArticle);
 	}
-	
-	
+	public String toString() {
+		return "Journal: " + name + ", " + publisher + ", ISSN: " + ISSN + ", Articles: " + articleList + "\n";
+	}
+		
 }

@@ -7,6 +7,7 @@ public class Article {
 	private String Title;
 	private ArrayList<Integer> AuthorIDs;
 	private String ISSN;
+	private ArrayList<Author> authors = new ArrayList<Author>();
 	
 	public Article(int iD, String title, ArrayList<Integer> authorIDs, String iSSN) {
 		super();
@@ -40,10 +41,17 @@ public class Article {
 	public void setISSN(String iSSN) {
 		ISSN = iSSN;
 	}
+	public ArrayList<Author> getAuthorNames() {
+		return authors;
+	}
+
+	public void addAuthor(Author newAuthor) {
+		this.authors.add(newAuthor);
+	}
 	
 	public String toString(){
 		//Overrides String.toString method, to easily print contents of class Article
-		return "ID: " + String.valueOf(ID) + ", Title: " + Title + 
-				", AuthorIDs: " + String.valueOf(AuthorIDs) + ", ISSN: " + ISSN;
+		return "\nTitle: " + Title + 
+				", Authors: " + authors.toString();
 	}	
 }
