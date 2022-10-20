@@ -51,7 +51,11 @@ public class Journal {
 		this.articleList.add(newArticle);
 	}
 	public String toString() {
-		return "Journal: " + name + ", " + publisher + ", ISSN: " + ISSN + ", Articles: " + articleList + "\n";
+		String returnString = "Journal: " + name + ", " + publisher + ", ISSN: " + ISSN + ", Articles: " + articleList + "\n";
+		//Adds mark to journals that are not a full issue (less than 3 articles)
+		if (articleList.size() < 3)
+		returnString = "*" + returnString;
+		return returnString;
 	}
 		
 }

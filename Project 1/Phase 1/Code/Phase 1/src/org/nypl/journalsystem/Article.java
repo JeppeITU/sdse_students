@@ -52,6 +52,6 @@ public class Article {
 	public String toString(){
 		//Overrides String.toString method, to easily print contents of class Article
 		return "\nTitle: " + Title + 
-				", Authors: " + authors.toString();
+				", Author(s): " + authors.toString();
 	}	
 }

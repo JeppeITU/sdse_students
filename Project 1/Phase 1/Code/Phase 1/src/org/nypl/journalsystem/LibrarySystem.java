@@ -1,6 +1,6 @@
 package org.nypl.journalsystem;
 
-import java.io.File;
+//import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,14 +80,11 @@ public class LibrarySystem {
 			
 			//Cross-reference with authors
 			for (int authorID: currentAuthorIDs) {
-				//currentArticle.addAuthor();
 				currentArticle.addAuthor(authorMap.get(authorID));
 			}
+			//add Article to corresponding Journal
 			journalMap.get(currentISSN).addToArticleList(currentArticle);
 		}
-		
-		
-		
 		//TODO: Load articles from file and assign them to appropriate journal
 	}
 	
@@ -99,7 +96,6 @@ public class LibrarySystem {
 	}
 	
 		
-		
 		private String cleanRawValue(String rawValue) {
 			return rawValue.trim();
 		}
@@ -110,10 +106,6 @@ public class LibrarySystem {
 		private String convertToString(String rawValue) {
 			rawValue = cleanRawValue(rawValue);
 			rawValue = rawValue.replaceAll("^\"|\"$", "");
-			/*if (rawValue.startsWith("\"") && rawValue.endsWith("\"")) {
-				return rawValue.substring(1, rawValue.length() - 1);
-			}*/
-			
 			return rawValue;
 		}
 		private ArrayList<Integer> convertToList(String rawValue) {
@@ -125,9 +117,8 @@ public class LibrarySystem {
 			}
 			return finalList;
 		}
-		
-		
-	public static final void main(String[] args) throws Exception {
+
+		public static final void main(String[] args) throws Exception {
 		LibrarySystem librarySystem = new LibrarySystem();
 		
 		librarySystem.load();
