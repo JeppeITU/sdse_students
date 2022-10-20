@@ -15,6 +15,18 @@ public class LibrarySystem {
 	
 	public LibrarySystem() {
 		//TODO: Initialize system with default journals.
+		
+		//Making publishers first
+		Publisher springer = new Publisher("Springer", "Germany");
+		Publisher elsevier = new Publisher("Elsevier", "Netherlands");
+		Publisher natureResearch = new Publisher("Nature Research", "Great Britain");
+		
+		//Journals
+		Journal higherEducation = new Journal("Higher Education", springer, "0018-1560");
+		Journal system = new Journal("System", elsevier, "0346-2511");
+		Journal chem = new Journal("Chem", elsevier, "2451-9294");
+		Journal nature = new Journal("Nature", natureResearch, "1476-4687");
+		Journal Society = new Journal("Society", springer, "0147-2011");
 	}
 	
 	public void load() throws FileNotFoundException, IOException {
@@ -31,10 +43,8 @@ public class LibrarySystem {
 			String lastName = convertToString(currentRecord.get(1));
 			String firstName = convertToString(currentRecord.get(2));
 			
-			Publisher currentPublisher = new Publisher(currentID, lastName, firstName);
+			Author currentPublisher = new Author(currentID, lastName, firstName);
 			System.out.println(currentPublisher);
-			//System.out.println(currentID + " " + firstName + " " + lastName);
-			//System.out.println(currentRecord);
 		}
 		
 		

@@ -1,35 +1,19 @@
 package org.nypl.journalsystem;
 
 public class Publisher {
-	private int ID;
-	private String firstName;
-	private String lastName;
+	private String name;
 	private String location;
 	
-	public Publisher(int iD, String firstName, String lastName) {
+	public Publisher(String name, String location) {
 		super();
-		ID = iD;
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
+		this.location = location;
 	}
-	
-	public int getID() {
-		return ID;
+	public String getName() {
+		return name;
 	}
-	public void setID(int iD) {
-		ID = iD;
-	}
-	public String getFirstName() {
-		return firstName;
-	}
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-	public String getLastName() {
-		return lastName;
-	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getLocation() {
 		return location;
@@ -37,14 +21,9 @@ public class Publisher {
 	public void setLocation(String location) {
 		this.location = location;
 	}
-	public String toString(){
-		//Overrides String.toString method, to easily print contents of class Publisher
-		String returnString = "ID: " + String.valueOf(ID) + ", Name: " + firstName + 
-				" " + lastName;
-		if (location != null) {
-			returnString += ", Location: " + location;
-		}
-		return returnString;
-	}
-
 }
+
+
+
+
+
